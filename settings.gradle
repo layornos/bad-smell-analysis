@@ -1,0 +1,18 @@
+
+rootProject.name = 'refactorlizar'
+include(':language-blob')
+include(":feature-scatter")
+include(":dependency-cycle")
+include(":dependency-direction")
+include(":dependency-layer")
+include(':analyzer-api')
+include(':core')
+include(':model')
+include(":commons-refactoring")
+include(":class-split")
+include(":commons-analyzer")
+include(":commons")
+include(":architecture-evaluation")
+include(":commons-query")
+include(":bad-smells-ma")
+include(":ScenarioMapper")

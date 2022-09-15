@@ -1,0 +1,17 @@
+plugins {
+	id 'edu.kit.kastel.sdq.case4lang.refactorlizar.java-conventions'
+}
+
+dependencies {
+	implementation project(':model')
+	implementation project(":commons")
+}
+
+description = 'analyzer-api'
+
+repositories {
+    maven {
+        url 'https://repo.clojars.org'
+        name 'Clojars'
+    }
+}

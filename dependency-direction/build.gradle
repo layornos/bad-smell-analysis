@@ -1,0 +1,12 @@
+
+
+plugins {
+	id 'edu.kit.kastel.sdq.case4lang.refactorlizar.java-conventions-analyzer'
+}
+
+dependencies {
+	implementation project(':analyzer-api')
+	implementation project(':model')
+}
+
+description = 'dependency-direction'

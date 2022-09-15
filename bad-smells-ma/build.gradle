@@ -1,0 +1,29 @@
+
+
+plugins {
+	id 'edu.kit.kastel.sdq.case4lang.refactorlizar.java-conventions'
+}
+dependencies {
+	implementation project(":"+project.commons)
+	implementation project(":commons-analyzer")
+	implementation project(":core")
+	implementation project(":analyzer-api")
+	implementation project(":model")
+	implementation 'org.mosim.refactorlizar:architecture-evaluation-tool:0.0.4'
+	implementation 'org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r'
+	implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver', version: '4.4.9'
+	implementation 'org.neo4j:neo4j:+'
+	implementation 'org.neo4j:neo4j-community:4.4.9'
+	implementation 'science.aist.neo4j:neo4j-driver:1.0.0'
+}
+allprojects {
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
+}
+description = 'badsmells-ma'
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}

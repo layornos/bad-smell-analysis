@@ -1,0 +1,74 @@
+plugins {
+	id "com.diffplug.spotless" version "5.14.3"
+	id 'edu.kit.kastel.sdq.case4lang.refactorlizar.java-conventions'
+	id "application"
+	id "maven-publish"
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	gradlePluginPortal()
+	maven {
+		url = uri('https://repo.maven.apache.org/maven2/')
+	}
+}
+
+application {
+	mainClassName = 'edu.kit.kastel.sdq.case4lang.refactorlizar.core.RefactorLizar'
+}
+apply plugin: 'com.github.johnrengelman.shadow'
+version = "0.0.2"
+
+publishing {
+	repositories {
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/MoSimEngine/RefactorLizar")
+			credentials {
+				username = System.getenv("GITHUB_ACTOR")
+				password = System.getenv("GITHUB_TOKEN")
+			}
+		}
+	}
+	publications {
+		gpr(MavenPublication) {
+			from(components.java)
+		}
+	}
+}
+allprojects {
+	apply plugin: 'com.diffplug.spotless'
+}
+spotless {
+	java {
+		target "**/*.java"
+		targetExclude "**/test/resources/**", "**/build/**"
+		trimTrailingWhitespace()
+		// removeUnusedImports()
+		googleJavaFormat().aosp()
+	}
+	groovy {
+		target "**/*.gradle"
+		// Use the default version and Groovy-Eclipse default configuration
+		greclipse()
+	}
+}
+
+
+dependencies {
+	implementation project(":model")
+	implementation project (":core")
+	implementation project(':feature-scatter')
+	implementation project(':dependency-cycle')
+	implementation project(':dependency-direction')
+	implementation project(':language-blob')
+	implementation project(":class-split")
+}
+shadowJar {
+	mergeServiceFiles()
+}
+tasks.withType(JavaCompile).configureEach {
+	options.fork = true
+}
+defaultTasks "shadowJar"

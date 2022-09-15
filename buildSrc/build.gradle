@@ -1,0 +1,18 @@
+
+
+plugins {
+	// Support convention plugins written in Groovy. Convention plugins are build scripts in 'src/main' that automatically become available as plugins in the main build.
+	id 'groovy-gradle-plugin'
+}
+
+repositories {
+	// Use the plugin portal to apply community plugins in convention plugins.
+	mavenLocal()
+	mavenCentral()
+	gradlePluginPortal()
+}
+dependencies {
+	implementation group: 'com.github.johnrengelman.shadow', name: 'com.github.johnrengelman.shadow.gradle.plugin', version: '7.0.0'
+	implementation group: 'net.ltgt.errorprone', name: 'net.ltgt.errorprone.gradle.plugin', version: '2.0.2'
+	implementation 'org.neo4j.driver:neo4j-java-driver:+'
+}
