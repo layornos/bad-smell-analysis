@@ -4,9 +4,7 @@ import static org.neo4j.driver.Values.parameters;
 
 import edu.kit.kastel.sdq.case4lang.refactorlizar.model.Project;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.neo4j.driver.AuthTokens;
@@ -19,12 +17,9 @@ import spoon.reflect.reference.CtTypeReference;
 public class FoldedHierarchyNeo4j {
     private Set<CtType<?>> languageNodes;
     private Set<CtType<?>> analyzerNodes;
-    private Map<Long, Map<String, String>> isomorphisms;
     List<String> layers;
 
-    public FoldedHierarchyNeo4j() {
-        isomorphisms = new HashMap<>();
-    }
+    public FoldedHierarchyNeo4j() {}
 
     public void start(Project project) {
         layers = Arrays.asList("paradigm,domain,quality,analysis,experiment".split(","));

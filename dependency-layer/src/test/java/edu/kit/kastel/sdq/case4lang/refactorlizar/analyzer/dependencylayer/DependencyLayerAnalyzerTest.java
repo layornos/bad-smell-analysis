@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class DependencyLayerAnalyzerTest {
 
     @Nested
-    class TypeLevel {
+    static class TypeLevel {
         @Test
         public void wrong_layer() {
             ModularLanguage language =
@@ -54,7 +54,7 @@ public class DependencyLayerAnalyzerTest {
     }
 
     @Nested
-    class PackageLevel {
+    static class PackageLevel {
         @Test
         public void wrong_layer() {
             ModularLanguage language =
@@ -93,7 +93,7 @@ public class DependencyLayerAnalyzerTest {
     }
 
     @Nested
-    class ComponentLevel {
+    static class ComponentLevel {
         @Test
         public void wrong_layer() {
             ModularLanguage language =

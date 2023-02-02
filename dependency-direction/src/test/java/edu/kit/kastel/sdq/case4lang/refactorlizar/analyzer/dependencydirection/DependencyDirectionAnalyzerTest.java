@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 public class DependencyDirectionAnalyzerTest {
     @Nested
-    class TypeLevel {
+    static class TypeLevel {
         @Test
         public void wrongDirection() {
             /*
@@ -78,7 +78,7 @@ public class DependencyDirectionAnalyzerTest {
     }
 
     @Nested
-    class PackageLevel {
+    static class PackageLevel {
         @Test
         public void wrongDirection() {
             /*
@@ -142,7 +142,7 @@ public class DependencyDirectionAnalyzerTest {
     }
 
     @Nested
-    class ComponentLevel {
+    static class ComponentLevel {
         @Test
         public void wrongDirection() {
             /*

@@ -45,7 +45,7 @@ public class LevelAnalyzer {
     private <T, U> void removeNodesWithLayer(
             MutableNetwork<T, Edge<T, U>> graph, Predicate<T> hasNoLayer) {
         graph.nodes().stream()
-                .filter(hasNoLayer::test)
+                .filter(hasNoLayer)
                 .collect(Collectors.toList())
                 .forEach(graph::removeNode);
     }

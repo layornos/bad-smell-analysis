@@ -46,50 +46,8 @@ public class DuplicateAbstractionNeo4j extends AbstractAnalyzer {
 
         var pairs_of_similar_dependencies = getDuplicatedDependencyStructure(subgraphs);
         pairs_of_similar_dependencies = remove_duplicates(pairs_of_similar_dependencies);
-        // Set<LanguageTypeAndIncomingDependencies> allLanguageTypes =
-        // getLanguageTypeAndIncomingDependencies(pairs_of_similar_dependencies);
 
         return createReportFromAnalysisTypes(pairs_of_similar_dependencies);
-    }
-
-    private Set<LanguageTypeAndIncomingDependencies> getLanguageTypeAndIncomingDependencies(
-            Set<PairOfAnalysisClasses> pairs_of_similar_dependencies) {
-        Set<LanguageTypeAndIncomingDependencies> languageTypeAndIncommingDependencies =
-                new HashSet<>();
-        var allLanguageTypes = getAllLanguageTypes(pairs_of_similar_dependencies);
-        Set<PairOfAnalysisClasses> finalPairs_of_similar_dependencies =
-                pairs_of_similar_dependencies;
-        allLanguageTypes.forEach(
-                languageType -> {
-                    finalPairs_of_similar_dependencies.forEach(
-                            pair -> {
-                                if (pair.common_dependencies.contains(languageType.language_type)) {
-                                    languageType.incomming_dependencies.add(pair.first);
-                                    languageType.incomming_dependencies.add(pair.second);
-                                }
-                            });
-                });
-        return allLanguageTypes;
-    }
-
-    private Set<LanguageTypeAndIncomingDependencies> getAllLanguageTypes(
-            Set<PairOfAnalysisClasses> pairOfAnalysisClasses) {
-        var allLanguageTypesAndIncomingDependencies =
-                new HashSet<LanguageTypeAndIncomingDependencies>();
-        var allLanguageTypes = new HashSet<String>();
-        pairOfAnalysisClasses.forEach(
-                pair -> {
-                    pair.common_dependencies.forEach(
-                            languageType -> {
-                                allLanguageTypes.add(languageType);
-                            });
-                });
-        allLanguageTypes.forEach(
-                languageType -> {
-                    allLanguageTypesAndIncomingDependencies.add(
-                            new LanguageTypeAndIncomingDependencies(languageType));
-                });
-        return allLanguageTypesAndIncomingDependencies;
     }
 
     private Set<PairOfAnalysisClasses> remove_duplicates(
@@ -139,17 +97,7 @@ public class DuplicateAbstractionNeo4j extends AbstractAnalyzer {
         return p;
     }
 
-    private class LanguageTypeAndIncomingDependencies {
-        public String language_type;
-        public Set<String> incomming_dependencies;
-
-        public LanguageTypeAndIncomingDependencies(String language_type) {
-            this.language_type = language_type;
-            this.incomming_dependencies = new HashSet<>();
-        }
-    }
-
-    private class PairOfAnalysisClasses {
+    private static class PairOfAnalysisClasses {
         public String first;
         public String second;
         public List<String> common_dependencies;
@@ -203,29 +151,6 @@ public class DuplicateAbstractionNeo4j extends AbstractAnalyzer {
                     pair.common_dependencies.forEach(
                             languageType -> {
                                 description.append(String.format("%s\n", languageType));
-                            });
-                    description.append("\n\n");
-                });
-        return new Report(
-                title,
-                description.toString(),
-                !pairs_of_similar_dependencies.isEmpty(),
-                pairs_of_similar_dependencies.size());
-    }
-
-    private Report createReportFromLanguageTypes(
-            Set<LanguageTypeAndIncomingDependencies> pairs_of_similar_dependencies) {
-        String title = "Duplicate Abstraction";
-        var description = createReportHeader(pairs_of_similar_dependencies.size());
-        pairs_of_similar_dependencies.forEach(
-                pair -> {
-                    description.append(
-                            String.format(
-                                    "On the language type %s depend the following analysis types:\n",
-                                    pair.language_type));
-                    pair.incomming_dependencies.forEach(
-                            analysisType -> {
-                                description.append(String.format("%s\n", analysisType));
                             });
                     description.append("\n\n");
                 });
@@ -304,7 +229,6 @@ public class DuplicateAbstractionNeo4j extends AbstractAnalyzer {
                 .filter(
                         v -> {
                             var type_declaration = v.getTypeDeclaration();
-                            var simpleName = v.getSimpleName();
                             if (languageNodes.contains(type_declaration)) return true;
                             return false;
                         })

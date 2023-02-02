@@ -45,11 +45,6 @@ public class SpeculativeGenerality extends AbstractAnalyzer {
                         .map(Component::getTypes)
                         .flatMap(Collection::stream)
                         .collect(Collectors.toSet());
-        var languageTypes =
-                language.getComponents().stream()
-                        .map(Component::getTypes)
-                        .flatMap(Collection::stream)
-                        .collect(Collectors.toSet());
 
         List<CtElement> removable = new ArrayList<>();
         for (CtType<?> ctType : analysisTypes) {

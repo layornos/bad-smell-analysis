@@ -20,11 +20,8 @@ public class GraphIsomorphism {
 
     private Set<CtType<?>> languageNodes;
     private Set<CtType<?>> analyzerNodes;
-    private Map<Long, Map<String, String>> isomorphisms;
 
-    public GraphIsomorphism() {
-        isomorphisms = new HashMap<>();
-    }
+    public GraphIsomorphism() {}
 
     public void start(Project project, int threshold) {
         Driver driver =
@@ -183,109 +180,5 @@ public class GraphIsomorphism {
                 project.getSimulatorModel().getComponents().stream()
                         .flatMap(v -> v.getTypes().stream())
                         .collect(Collectors.toSet());
-    }
-
-    private void graph_isomorphism_analysis(Driver driver, Map<String, Set<String>> subgraphs) {
-        try (Session session = driver.session()) {
-            subgraphs.forEach(
-                    (k, v) -> {
-                        var languageClasses =
-                                session.writeTransaction(
-                                        tx -> {
-                                            tx.run(
-                                                    "MATCH (s)-[*]->(n) WHERE s.name = $analyzerClassName "
-                                                            + "remove s:AnalyzerClass set s:LabelName "
-                                                            + "remove n:LanguageClass set n:LabelName",
-                                                    parameters("analyzerClassName", k));
-                                            return Void.TYPE;
-                                        });
-                    });
-        }
-
-        try (Session session = driver.session()) {
-            subgraphs.forEach(
-                    (k, v) -> {
-                        session.writeTransaction(
-                                tx -> {
-                                    tx.run("CREATE (a:LabelName2 {name:$k})", parameters("k", k));
-                                    return "added analyzer nodes subs";
-                                });
-                        v.stream()
-                                .forEach(
-                                        languageClassNode -> {
-                                            session.writeTransaction(
-                                                    tx -> {
-                                                        tx.run(
-                                                                "CREATE (a:LabelName2 {name:$v})",
-                                                                parameters("v", v));
-                                                        return "added language nodes subs";
-                                                    });
-                                        });
-                        v.stream()
-                                .forEach(
-                                        languageClassNode -> {
-                                            session.writeTransaction(
-                                                    tx -> {
-                                                        tx.run(
-                                                                "MATCH (a:LabelName2), (b:LabelName2) WHERE a.name =$analyzerClassName AND b.name = $languageClassName MERGE (a)-[r:uses]->(b)",
-                                                                parameters(
-                                                                        "analyzerClassName",
-                                                                        k,
-                                                                        "languageClassName",
-                                                                        v));
-                                                        return "";
-                                                    });
-                                        });
-                        session.readTransaction(
-                                tx -> {
-                                    var result =
-                                            tx.run(
-                                                    "CALL csb.subgraphIsomorphism($patternLabel, $targetLabel) "
-                                                            + "YIELD subgraphIndex, patternNode, targetNode",
-                                                    parameters(
-                                                            "patternLabel",
-                                                            "LabelName2",
-                                                            "targetLabel",
-                                                            "LabelName"));
-                                    while (result.hasNext()) {
-                                        var subgraphIndex =
-                                                result.next().get("subgraphIndex").asLong();
-                                        var patternNode =
-                                                result.next()
-                                                        .get("patternNode")
-                                                        .asNode()
-                                                        .get("name")
-                                                        .asString();
-                                        var targetNode =
-                                                result.next()
-                                                        .get("targetNode")
-                                                        .asNode()
-                                                        .get("name")
-                                                        .asString();
-                                        if (!isomorphisms.containsKey(subgraphIndex))
-                                            isomorphisms.put(subgraphIndex, new HashMap<>());
-                                        isomorphisms
-                                                .get(subgraphIndex)
-                                                .put(patternNode, targetNode);
-                                    }
-                                    return "";
-                                });
-
-                        session.writeTransaction(
-                                tx -> {
-                                    tx.run(
-                                            "MATCH (s:LabelName2)-[*]->(n) WHERE s.name = \""
-                                                    + k
-                                                    + "\" detach delete s detach delete n");
-                                    return "";
-                                });
-                        System.out.println(
-                                "For "
-                                        + k
-                                        + " we found "
-                                        + isomorphisms.keySet().size()
-                                        + " isomorphisms.");
-                    });
-        }
     }
 }
