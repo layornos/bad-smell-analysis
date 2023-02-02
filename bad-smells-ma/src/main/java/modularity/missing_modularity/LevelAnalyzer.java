@@ -38,7 +38,7 @@ public class LevelAnalyzer {
                 (CtType<?> v) ->
                         Components.findComponent(model, language, v)
                                 .map(this::isNotUnknownLayer)
-                        .orElse(true));
+                                .orElse(true));
         return TypeLevelReportGeneration.generateReport(graph, model, language);
     }
 

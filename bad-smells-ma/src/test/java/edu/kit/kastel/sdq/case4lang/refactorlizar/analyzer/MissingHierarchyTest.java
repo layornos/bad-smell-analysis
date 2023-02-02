@@ -1,9 +1,9 @@
 package edu.kit.kastel.sdq.case4lang.refactorlizar.analyzer;
 
-import hierarchy.missing_hierarchy.MissingHierarchy;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.InputKind;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.ProjectParser;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.model.Project;
+import hierarchy.missing_hierarchy.MissingHierarchy;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;

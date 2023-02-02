@@ -145,26 +145,47 @@ class MetricTests {
 
     @Nested
     class Cohesion {
-            @Test
-            void cohesionTest1() {
-                    assertThat(new Application().evaluate(CalculationMode.MARTIN,
-                                    "src/test/resources/projects/smallProject/Foo.java")
-                                    .getCohesion().getValue()).isWithin(0.1).of(1);
-                    assertThat(new Application().evaluate(CalculationMode.REINER,
-                                    "src/test/resources/projects/smallProject/Foo.java")
-                                    .getCohesion().getValue()).isEqualTo(1.0);
-            }
+        @Test
+        void cohesionTest1() {
+            assertThat(
+                            new Application()
+                                    .evaluate(
+                                            CalculationMode.MARTIN,
+                                            "src/test/resources/projects/smallProject/Foo.java")
+                                    .getCohesion()
+                                    .getValue())
+                    .isWithin(0.1)
+                    .of(1);
+            assertThat(
+                            new Application()
+                                    .evaluate(
+                                            CalculationMode.REINER,
+                                            "src/test/resources/projects/smallProject/Foo.java")
+                                    .getCohesion()
+                                    .getValue())
+                    .isEqualTo(1.0);
+        }
 
-            @Test
-            void cohesionTest2() {
-                    assertThat(new Application()
-                                    .evaluate(CalculationMode.MARTIN,
-                                                    "src/test/resources/projects/smallProject/")
-                                    .getCohesion().getValue()).isWithin(0.1).of(0.17);
-                    assertThat(new Application()
-                                    .evaluate(CalculationMode.REINER,
-                                                    "src/test/resources/projects/smallProject/")
-                                    .getCohesion().getValue()).isWithin(0.1).of(0.21);
-            }
+        @Test
+        void cohesionTest2() {
+            assertThat(
+                            new Application()
+                                    .evaluate(
+                                            CalculationMode.MARTIN,
+                                            "src/test/resources/projects/smallProject/")
+                                    .getCohesion()
+                                    .getValue())
+                    .isWithin(0.1)
+                    .of(0.17);
+            assertThat(
+                            new Application()
+                                    .evaluate(
+                                            CalculationMode.REINER,
+                                            "src/test/resources/projects/smallProject/")
+                                    .getCohesion()
+                                    .getValue())
+                    .isWithin(0.1)
+                    .of(0.21);
+        }
     }
 }

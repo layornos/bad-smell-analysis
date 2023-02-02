@@ -5,6 +5,5 @@ import org.neo4j.ogm.annotation.Property;
 
 @NodeEntity(label = "LanguageClass")
 public class LanguageClass {
-    @Property
-    String name = "";
+    @Property String name = "";
 }

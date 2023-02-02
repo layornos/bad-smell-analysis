@@ -1,12 +1,12 @@
 package edu.kit.kastel.sdq.case4lang.refactorlizar.analyzer;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.Test;
 import abstraction.duplicated_abstraction.GraphIsomorphism;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.InputKind;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.ProjectParser;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.model.Project;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class DuplicateAbstractionTest {
     @Test
@@ -24,7 +24,7 @@ public class DuplicateAbstractionTest {
                         .addLanguagePaths(languagePaths)
                         .addSimulatorPaths(simulatorPaths)
                         .ignoreTestFolder(true)
-                                        .parse();
+                        .parse();
         GraphIsomorphism isomorphism = new GraphIsomorphism();
         isomorphism.start(project, 2);
     }

@@ -10,8 +10,8 @@ dependencies {
 description = 'analyzer-api'
 
 repositories {
-    maven {
-        url 'https://repo.clojars.org'
-        name 'Clojars'
-    }
+	maven {
+		url 'https://repo.clojars.org'
+		name 'Clojars'
+	}
 }

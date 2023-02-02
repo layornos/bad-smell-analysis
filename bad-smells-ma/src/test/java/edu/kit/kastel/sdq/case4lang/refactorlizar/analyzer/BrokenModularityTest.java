@@ -1,11 +1,11 @@
 package edu.kit.kastel.sdq.case4lang.refactorlizar.analyzer;
 
-import modularity.broken_modularity.BrokenModularity;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.InputKind;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.ProjectParser;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.model.Project;
 import java.util.ArrayList;
 import java.util.List;
+import modularity.broken_modularity.BrokenModularity;
 import org.junit.jupiter.api.Test;
 
 public class BrokenModularityTest {

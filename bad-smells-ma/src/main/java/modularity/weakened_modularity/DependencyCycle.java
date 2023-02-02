@@ -33,7 +33,7 @@ public class DependencyCycle extends AbstractAnalyzer {
             ModularLanguage language, SimulatorModel simulatorModel, Settings settings) {
         MutableNetwork<CtType<?>, Edge<CtType<?>, CtTypeMember>> graph =
                 DependencyGraphSupplier.getTypeGraph(language, simulatorModel);
-        //TypeGraphs.removeLanguageNodes(language, graph);
+        // TypeGraphs.removeLanguageNodes(language, graph);
         TypeGraphs.removeNonProjectNodes(language, simulatorModel, graph);
         Graph<Set<CtType<?>>> cycles =
                 CycleDetection.findStronglyConnectedComponents(graph.asGraph());

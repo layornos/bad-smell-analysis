@@ -1,13 +1,12 @@
 package edu.kit.kastel.sdq.case4lang.refactorlizar.analyzer;
 
-import hierarchy.folded_hierarchy.FoldedHierarchyNeo4j;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.InputKind;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.ProjectParser;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.model.Project;
-import org.junit.jupiter.api.Test;
-
+import hierarchy.folded_hierarchy.FoldedHierarchyNeo4j;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class FoldedHierarchyNeo4JTest {
     @Test
@@ -16,8 +15,7 @@ public class FoldedHierarchyNeo4JTest {
         simulatorPaths.add(
                 "/Users/layornos/workspaces/diss/bad-smells/eval/LayeredAnalysisExample");
         List<String> languagePaths = new ArrayList<>();
-        languagePaths.add(
-                "/Users/layornos/workspaces/diss/bad-smells/eval_lang");
+        languagePaths.add("/Users/layornos/workspaces/diss/bad-smells/eval_lang");
         Project project =
                 new ProjectParser()
                         .setLanguageKind(InputKind.ECLIPSE_PLUGIN)

@@ -16,7 +16,6 @@ public class Report {
     private Collection<List<String>> cycles;
     private Map<String, Set<String>> featureScatterings = Collections.emptyMap();
     private Map<String, Set<String>> languageBlobs = Collections.emptyMap();
-    
 
     public Report(String title, String description, boolean smellFound) {
         this.text = title;
@@ -24,7 +23,7 @@ public class Report {
         solutions = Collections.emptyList();
         this.smellFound = smellFound;
     }
-    
+
     public Report(String title, String description, boolean smellFound, int numberOfSmells) {
         this(title, description, smellFound);
         this.numberOfSmells = numberOfSmells;
@@ -70,6 +69,7 @@ public class Report {
     public String getTitle() {
         return text;
     }
+
     public void addSolution(Solution solution) {
         solutions.add(solution);
     }
@@ -84,15 +84,21 @@ public class Report {
 
     @Override
     public String toString() {
-        return "Report [description=" + description + ", smellFound=" + smellFound + ", number of smells found=" + this.numberOfSmells + ", solutions=" + solutions + ", text=" + text + "]";
+        return "Report [description="
+                + description
+                + ", smellFound="
+                + smellFound
+                + ", number of smells found="
+                + this.numberOfSmells
+                + ", solutions="
+                + solutions
+                + ", text="
+                + text
+                + "]";
     }
-    
-    /**
-     * @return the numberOfSmells
-     */
+
+    /** @return the numberOfSmells */
     public int getNumberOfSmells() {
         return numberOfSmells;
     }
-    
-    
 }

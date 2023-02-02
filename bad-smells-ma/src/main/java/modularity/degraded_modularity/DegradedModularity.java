@@ -37,29 +37,31 @@ public class DegradedModularity extends AbstractAnalyzer {
     }
 
     private <R> void removeNonScatter(
-            MutableNetwork<CtType<?>, Edge<CtType<?>, R>> graph, ModularLanguage language, SimulatorModel simulator) {
+            MutableNetwork<CtType<?>, Edge<CtType<?>, R>> graph,
+            ModularLanguage language,
+            SimulatorModel simulator) {
         graph.nodes().stream()
                 .filter(type -> JavaUtils.isLanguageType(language, type))
                 .filter(
                         type ->
                                 hasOnePredecessor(graph, type)
-                                                        || isSameComponent(graph.predecessors(type),
-                                                                        language)
-                                        || isSameComponent(graph.predecessors(type),
-                                                                        simulator))
+                                        || isSameComponent(graph.predecessors(type), language)
+                                        || isSameComponent(graph.predecessors(type), simulator))
                 .collect(Collectors.toList())
                 .forEach(graph::removeNode);
     }
 
     private <T> boolean isSameComponent(Set<T> types, ModularLanguage language) {
-            return language.getComponents().stream().filter(
-                            v -> types.stream().anyMatch(inner -> v.getTypes().contains(inner)))
-                            .count() == 1;
+        return language.getComponents().stream()
+                        .filter(v -> types.stream().anyMatch(inner -> v.getTypes().contains(inner)))
+                        .count()
+                == 1;
     }
-    
+
     private <T> boolean isSameComponent(Set<T> types, SimulatorModel simulatorModel) {
-            return simulatorModel.getComponents().stream().filter(
-                            v -> types.stream().anyMatch(inner -> v.getTypes().contains(inner)))
-                            .count() == 1;
+        return simulatorModel.getComponents().stream()
+                        .filter(v -> types.stream().anyMatch(inner -> v.getTypes().contains(inner)))
+                        .count()
+                == 1;
     }
 }

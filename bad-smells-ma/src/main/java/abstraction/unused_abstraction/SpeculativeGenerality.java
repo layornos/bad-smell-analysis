@@ -20,6 +20,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.visitor.filter.FieldAccessFilter;
 import spoon.reflect.visitor.filter.TypeFilter;
+
 @Deprecated
 public class SpeculativeGenerality extends AbstractAnalyzer {
 
@@ -44,17 +45,16 @@ public class SpeculativeGenerality extends AbstractAnalyzer {
                         .map(Component::getTypes)
                         .flatMap(Collection::stream)
                         .collect(Collectors.toSet());
-        var languageTypes = language.getComponents().stream()
-                .map(Component::getTypes)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
-
-
+        var languageTypes =
+                language.getComponents().stream()
+                        .map(Component::getTypes)
+                        .flatMap(Collection::stream)
+                        .collect(Collectors.toSet());
 
         List<CtElement> removable = new ArrayList<>();
         for (CtType<?> ctType : analysisTypes) {
             for (CtField<?> field : ctType.getFields()) {
-                if(field.getSimpleName().equals("serialVersionUID")) {
+                if (field.getSimpleName().equals("serialVersionUID")) {
                     continue;
                 }
                 if (field.isPrivate()) {
@@ -67,14 +67,21 @@ public class SpeculativeGenerality extends AbstractAnalyzer {
             }
             var search = new MethodInvocationSearch();
             ctType.accept(search);
-           var refs =  ctType.getElements(new TypeFilter<>(CtExecutableReference.class));
+            var refs = ctType.getElements(new TypeFilter<>(CtExecutableReference.class));
             for (CtMethod<?> method : ctType.getMethods()) {
                 if (method.isPrivate()) {
                     for (MethodCallState state : search.getInvocationsOfMethod()) {
-                        if (state.getMethod() != null && state.getMethod().equals(method)
+                        if (state.getMethod() != null
+                                && state.getMethod().equals(method)
                                 && state.checkCallState()) {
-                            if (refs.stream().filter(v -> v.getExecutableDeclaration()!=null).noneMatch(v -> method.getSimpleName()
-                                    .equals(v.getExecutableDeclaration().getSimpleName()))) {
+                            if (refs.stream()
+                                    .filter(v -> v.getExecutableDeclaration() != null)
+                                    .noneMatch(
+                                            v ->
+                                                    method.getSimpleName()
+                                                            .equals(
+                                                                    v.getExecutableDeclaration()
+                                                                            .getSimpleName()))) {
                                 removable.add(method);
                             }
                         }
@@ -84,7 +91,9 @@ public class SpeculativeGenerality extends AbstractAnalyzer {
         }
         String title = "Speculative Generality";
         StringBuilder description = new StringBuilder();
-        description.append(String.format("%s unused elements found", removable.size())).append("\n\n");
+        description
+                .append(String.format("%s unused elements found", removable.size()))
+                .append("\n\n");
         for (CtElement ctElement : removable) {
             description.append(ctElement.getPath() + "\n");
         }
