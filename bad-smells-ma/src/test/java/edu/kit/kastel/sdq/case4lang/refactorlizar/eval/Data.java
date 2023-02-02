@@ -28,9 +28,9 @@ public class Data {
 
     {
         {
-            //caseStudies.add("SimuLizar");
-            //caseStudies.add("Camunda");
-            //caseStudies.add("KAMP");
+            // caseStudies.add("SimuLizar");
+            // caseStudies.add("Camunda");
+            // caseStudies.add("KAMP");
             caseStudies.add("SmartGrid");
         }
     }
