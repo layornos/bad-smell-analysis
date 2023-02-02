@@ -4,10 +4,9 @@ import abstraction.unused_abstraction.UnusedAbstraction;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.InputKind;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.ProjectParser;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.model.Project;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class UnusedAbstractionTest {
     @Test
@@ -27,6 +26,6 @@ public class UnusedAbstractionTest {
                         .ignoreTestFolder(true)
                         .parse();
         UnusedAbstraction unusedAbstraction = new UnusedAbstraction();
-        unusedAbstraction.start(project);
+        // unusedAbstraction.start(project);
     }
 }

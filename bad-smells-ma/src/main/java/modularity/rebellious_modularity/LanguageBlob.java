@@ -30,7 +30,7 @@ public class LanguageBlob extends AbstractAnalyzer {
         Set<CtType<?>> types = getAllTypes(simulatorModel);
         List<Pair<CtType<?>, Map<Component, Set<CtTypeReference<?>>>>> pairs = new ArrayList<>();
         for (CtType<?> ctType : types) {
-                Set<CtTypeReference<?>> references = new HashSet<>(ctType.getReferencedTypes());
+            Set<CtTypeReference<?>> references = new HashSet<>(ctType.getReferencedTypes());
             references.removeIf(
                     v -> language.getTypeWithQualifiedName(v.getQualifiedName()) == null);
             Map<Component, Set<CtTypeReference<?>>> map = new HashMap<>();
@@ -67,7 +67,7 @@ public class LanguageBlob extends AbstractAnalyzer {
                                             v ->
                                                     v.getMetaInformation()
                                                             .getRootPath()
-                                                                .getParent()
+                                                            .getParent()
                                                             .getFileName()
                                                             .toString())
                                     .collect(Collectors.joining(", "))));

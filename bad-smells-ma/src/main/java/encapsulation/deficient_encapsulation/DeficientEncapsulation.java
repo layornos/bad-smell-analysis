@@ -52,8 +52,7 @@ public class DeficientEncapsulation extends AbstractAnalyzer {
                 tuples.removeIf(v -> v.get(0).equals(v.get(1)));
                 for (List<CtTypeReference<?>> tuple : tuples) {
                     tuple = new ArrayList<>(tuple);
-                    tuple.sort(
-                            (Comparator.comparing(CtTypeInformation::getQualifiedName)));
+                    tuple.sort(Comparator.comparing(CtTypeInformation::getQualifiedName));
                     if (map.containsKey(tuple)) {
                         map.put(tuple, map.get(tuple) + 1);
                     } else {

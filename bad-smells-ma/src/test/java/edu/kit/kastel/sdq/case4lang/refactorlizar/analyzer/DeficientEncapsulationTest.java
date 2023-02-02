@@ -1,9 +1,9 @@
 package edu.kit.kastel.sdq.case4lang.refactorlizar.analyzer;
 
-import encapsulation.deficient_encapsulation.DeficientEncapsulation;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.InputKind;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.core.ProjectParser;
 import edu.kit.kastel.sdq.case4lang.refactorlizar.model.Project;
+import encapsulation.deficient_encapsulation.DeficientEncapsulation;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;

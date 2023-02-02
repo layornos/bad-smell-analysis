@@ -43,8 +43,7 @@ public class TypeLevelReportGeneration {
                                                         graph.edgesConnecting(source, target))));
             }
         }
-        return new Report("Degraded Modularity", builder.toString(), true, 
-                        (int) count);
+        return new Report("Degraded Modularity", builder.toString(), true, (int) count);
     }
 
     private static String generateMemberUsage(

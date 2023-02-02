@@ -14,8 +14,7 @@ public class TypeLevelReportGeneration {
 
     public static Report createReport(Set<List<Relation<CtType<?>, CtTypeMember>>> result) {
         if (result.isEmpty()) {
-            return new Report(
-                    "Weakend Modularity", "no dependency cycle found", false);
+            return new Report("Weakend Modularity", "no dependency cycle found", false);
         }
         StringBuilder description = new StringBuilder();
         description.append(result.size() + " cycles found\n");
@@ -34,8 +33,7 @@ public class TypeLevelReportGeneration {
             }
             description.append("<<<<<<<< Cycle end\n");
         }
-        return new Report("Weakenend Modularity", description.toString(), true, 
-                result.size());
+        return new Report("Weakenend Modularity", description.toString(), true, result.size());
     }
 
     private static String generateUsageDescription(CtTypeMember member) {
